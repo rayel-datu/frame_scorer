@@ -7,9 +7,9 @@ class Frame {
   const Frame({
     required this.id,
     required this.gameId,
-    this.downedPins,
-    this.score,
-    this.isFinal,
+    required this.scores,
+    this.totalScore = 0,
+    this.isFinal = false,
   });
 
   factory Frame.fromJson(Map<String, dynamic> json) => _$FrameFromJson(json);
@@ -17,7 +17,7 @@ class Frame {
 
   final int id;
   final int gameId;
-  final int? downedPins;
-  final int? score;
-  final bool? isFinal;
+  final List<int> scores;
+  final int totalScore;
+  final bool isFinal;
 }

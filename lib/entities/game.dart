@@ -3,12 +3,12 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'game.g.dart';
 
 @JsonSerializable()
-class Games {
-  const Games({required this.id, this.totalScore});
+class Game {
+  const Game({required this.id, this.totalScore = 0});
 
-  factory Games.fromJson(Map<String, dynamic> json) => _$GamesFromJson(json);
-  Map<String, dynamic> toJson() => _$GamesToJson(this);
+  factory Game.fromJson(Map<String, dynamic> json) => _$GameFromJson(json);
+  Map<String, dynamic> toJson() => _$GameToJson(this);
 
   final int id;
-  final int? totalScore;
+  final int totalScore;
 }
