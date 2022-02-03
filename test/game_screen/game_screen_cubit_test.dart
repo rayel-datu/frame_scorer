@@ -1,12 +1,9 @@
-import 'dart:convert';
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:frame_scorer/domain/interfaces/local_repository.dart';
 import 'package:frame_scorer/domain/services/persistence_service.dart';
 import 'package:frame_scorer/entities/frame.dart';
 import 'package:frame_scorer/entities/game.dart';
 import 'package:frame_scorer/presentation/frame/cubit/game_screen_cubit.dart';
-import 'package:mockito/mockito.dart';
 
 import '../mocks.dart';
 
@@ -104,7 +101,7 @@ main() {
     });
   });
   group('Score Game Tests', () {
-    test('Complete Game Score Test first 2 roll is spare', () {
+    test('Complete Game Score Test  last frame first 2 roll is spare', () {
       GameScreenCubit gameScreenCubit =
           GameScreenCubit(persistenceService, game: Game(id: gameId));
 
