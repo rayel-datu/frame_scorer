@@ -5,7 +5,7 @@ import 'package:frame_scorer/domain/interfaces/local_repository.dart';
 import 'package:frame_scorer/domain/services/persistence_service.dart';
 import 'package:frame_scorer/entities/frame.dart';
 import 'package:frame_scorer/entities/game.dart';
-import 'package:frame_scorer/presentation/frame/bloc/game_screen_cubit.dart';
+import 'package:frame_scorer/presentation/frame/cubit/game_screen_cubit.dart';
 import 'package:mockito/mockito.dart';
 
 import '../mocks.dart';
@@ -57,23 +57,159 @@ main() {
       expect(element.isFinal, index == 9);
     });
   });
-  group('Record Score Tests', () {
+  group('Roll Score Tests', () {
     test('Score Strike', () {
       GameScreenCubit gameScreenCubit =
           GameScreenCubit(persistenceService, game: Game(id: gameId));
 
       gameScreenCubit.roll(10);
+      gameScreenCubit.roll(2);
+      gameScreenCubit.roll(5);
+      gameScreenCubit.computeScore();
+
+      expect(gameScreenCubit.state.viewModel.totalScore, 24);
+      expect(gameScreenCubit.state.viewModel.frames[0].scores[1] ?? 0, 0);
+    });
+    test('Score Spare', () {
+      GameScreenCubit gameScreenCubit =
+          GameScreenCubit(persistenceService, game: Game(id: gameId));
+
+      gameScreenCubit.roll(8);
+      gameScreenCubit.roll(2);
+      gameScreenCubit.roll(5);
+      gameScreenCubit.roll(1);
+      gameScreenCubit.computeScore();
+
+      expect(gameScreenCubit.state.viewModel.totalScore, 21);
+      expect(
+          (gameScreenCubit.state.viewModel.frames[0].scores[0] ?? 0) +
+              (gameScreenCubit.state.viewModel.frames[0].scores[1] ?? 0),
+          10);
+    });
+    test('Score Open', () {
+      GameScreenCubit gameScreenCubit =
+          GameScreenCubit(persistenceService, game: Game(id: gameId));
+
+      gameScreenCubit.roll(8);
+      gameScreenCubit.roll(1);
+
+      gameScreenCubit.computeScore();
+
+      expect(gameScreenCubit.state.viewModel.totalScore, 9);
+      expect(
+          (gameScreenCubit.state.viewModel.frames[0].scores[0] ?? 0) +
+                  (gameScreenCubit.state.viewModel.frames[0].scores[1] ?? 0) <
+              10,
+          true);
+    });
+  });
+  group('Score Game Tests', () {
+    test('Complete Game Score Test first 2 roll is spare', () {
+      GameScreenCubit gameScreenCubit =
+          GameScreenCubit(persistenceService, game: Game(id: gameId));
+
       gameScreenCubit.roll(10);
+
+      gameScreenCubit.roll(10);
+
       gameScreenCubit.roll(8);
       gameScreenCubit.roll(2);
 
-      expect(gameScreenCubit.state.viewModel.totalScore, 10,
-          reason: '${gameScreenCubit.state.viewModel.totalScore}');
-          
+      gameScreenCubit.roll(8);
+      gameScreenCubit.roll(1);
+
+      gameScreenCubit.roll(2);
+      gameScreenCubit.roll(1);
+
+      gameScreenCubit.roll(10);
+
+      gameScreenCubit.roll(10);
+
+      gameScreenCubit.roll(1);
+      gameScreenCubit.roll(1);
+
+      gameScreenCubit.roll(1);
+      gameScreenCubit.roll(0);
+
+      gameScreenCubit.roll(1);
+      gameScreenCubit.roll(9);
+      gameScreenCubit.roll(8);
+      gameScreenCubit.computeScore();
+
+      expect(gameScreenCubit.state.viewModel.totalScore, 132);
     });
-    test('Score Spare', () {});
-    test('Score Open', () {});
-    test('score Frame 10', () {});
+
+    test('Complete Game Score Test Last Frame open frame on first 2 roll', () {
+      GameScreenCubit gameScreenCubit =
+          GameScreenCubit(persistenceService, game: Game(id: gameId));
+
+      gameScreenCubit.roll(10);
+
+      gameScreenCubit.roll(10);
+
+      gameScreenCubit.roll(8);
+      gameScreenCubit.roll(2);
+
+      gameScreenCubit.roll(8);
+      gameScreenCubit.roll(1);
+
+      gameScreenCubit.roll(2);
+      gameScreenCubit.roll(1);
+
+      gameScreenCubit.roll(10);
+
+      gameScreenCubit.roll(10);
+
+      gameScreenCubit.roll(1);
+      gameScreenCubit.roll(1);
+
+      gameScreenCubit.roll(1);
+      gameScreenCubit.roll(0);
+
+      gameScreenCubit.roll(1);
+      gameScreenCubit.roll(8);
+
+      gameScreenCubit.computeScore();
+
+      expect(gameScreenCubit.state.viewModel.totalScore, 123);
+      expect(gameScreenCubit.state.viewModel.frames[9].scores[2], 0);
+    });
+
+    test('Complete Game Score Test first Strike', () {
+      GameScreenCubit gameScreenCubit =
+          GameScreenCubit(persistenceService, game: Game(id: gameId));
+
+      gameScreenCubit.roll(10);
+
+      gameScreenCubit.roll(10);
+
+      gameScreenCubit.roll(8);
+      gameScreenCubit.roll(2);
+
+      gameScreenCubit.roll(8);
+      gameScreenCubit.roll(1);
+
+      gameScreenCubit.roll(2);
+      gameScreenCubit.roll(1);
+
+      gameScreenCubit.roll(10);
+
+      gameScreenCubit.roll(10);
+
+      gameScreenCubit.roll(1);
+      gameScreenCubit.roll(1);
+
+      gameScreenCubit.roll(1);
+      gameScreenCubit.roll(0);
+
+      gameScreenCubit.roll(10);
+      gameScreenCubit.roll(10);
+      gameScreenCubit.roll(10);
+
+      gameScreenCubit.computeScore();
+
+      expect(gameScreenCubit.state.viewModel.totalScore, 144);
+    });
   });
   test('Save game', () {});
 }
