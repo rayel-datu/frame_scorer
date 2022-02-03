@@ -57,6 +57,23 @@ main() {
       expect(element.isFinal, index == 9);
     });
   });
-  test('Record score test', () {});
+  group('Record Score Tests', () {
+    test('Score Strike', () {
+      GameScreenCubit gameScreenCubit =
+          GameScreenCubit(persistenceService, game: Game(id: gameId));
+
+      gameScreenCubit.roll(10);
+      gameScreenCubit.roll(10);
+      gameScreenCubit.roll(8);
+      gameScreenCubit.roll(2);
+
+      expect(gameScreenCubit.state.viewModel.totalScore, 10,
+          reason: '${gameScreenCubit.state.viewModel.totalScore}');
+          
+    });
+    test('Score Spare', () {});
+    test('Score Open', () {});
+    test('score Frame 10', () {});
+  });
   test('Save game', () {});
 }

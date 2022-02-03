@@ -2,7 +2,7 @@ import 'package:frame_scorer/entities/frame.dart';
 import 'package:frame_scorer/entities/game.dart';
 
 class GameScreenViewModel {
-  GameScreenViewModel(this.game, {this.currentFrame = 0})
+  GameScreenViewModel(this.game, {this.currentFrame = 0, this.totalScore = 0})
       : frames = List.generate(
             10,
             (index) => Frame(
@@ -10,9 +10,14 @@ class GameScreenViewModel {
                   gameId: game.id,
                   isFinal: index == 9,
                   scores: List.generate(
-                      3, (index) => 0), // should be true on last item
-                ));
+                      3, (index) => null), // should be true on last item
+                )),
+        shots = [];
   final List<Frame> frames;
   final Game game;
-  final int currentFrame;
+  int currentFrame;
+  List<int> shots;
+  int totalScore;
+
+  Frame getCurrentFrame() => frames[currentFrame];
 }
