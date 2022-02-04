@@ -18,6 +18,7 @@ class GameScreenViewModel {
   int currentFrame;
   List<int> shots;
   int totalScore;
+  int selected = 0;
 
   Frame getCurrentFrame() => frames[currentFrame];
 }
