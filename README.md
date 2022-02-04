@@ -16,6 +16,7 @@ Flutter version 2.8.1
 4. You should be able to run it via Simulator (ios) or an emulator (android)
 
 > flutter devices
+
 > flutter run -d <Device name (e.g. Samsung Abc)>
 
 ## If you don't have flutter installed
