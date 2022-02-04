@@ -19,6 +19,10 @@ Flutter version 2.8.1
 
 > flutter run -d <Device name (e.g. Samsung Abc)>
 
+5. To execute unit test
+
+> flutter test
+
 ## If you don't have flutter installed
 
 1. You can download the included APK, IOS not available for download, and install it on your device
