@@ -1,5 +1,7 @@
 # frame_scorer
 
+Flutter version 2.8.1
+
 ## Running the app with flutter
 
 1. Clone 
