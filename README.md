@@ -1,16 +1,21 @@
 # frame_scorer
 
-A new Flutter project.
+## Running the app with flutter
 
-## Getting Started
+1. Clone 
+2. If you have flutter installed in your machine you just need to run this in your terminal
 
-This project is a starting point for a Flutter application.
+> flutter packages get
 
-A few resources to get you started if this is your first Flutter project:
+3. then run the command below to generate files
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+> flutter pub run build_runner build
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+4. You should be able to run it via Simulator (ios) or an emulator (android)
+
+## If you don't have flutter installed
+
+1. You can download the included APK, IOS not available for download, and install it on your device
+
+
+
