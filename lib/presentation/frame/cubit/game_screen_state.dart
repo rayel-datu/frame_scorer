@@ -9,4 +9,10 @@ class GameScreenState with _$GameScreenState {
       GameScreenScoredState;
   factory GameScreenState.initial(GameScreenViewModel viewModel) =
       GameScreenInitialState;
+  factory GameScreenState.selected(GameScreenViewModel viewModel) =
+      GameScreenSelectedState;
+  factory GameScreenState.finished(GameScreenViewModel viewModel) =
+      GameScreenFinishedState;
+  factory GameScreenState.error(GameScreenViewModel viewModel, String message) =
+      GameScreenErrorState;
 }
